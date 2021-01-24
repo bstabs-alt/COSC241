@@ -1,0 +1,74 @@
+package week02;
+
+import java.util.Random;
+
+public class Coins{
+
+    public static final boolean HEADS = true;
+    public static final boolean TAILS = false;
+    String c;
+    int length;
+    private boolean[] coins;
+
+    public static void main(String[] args) {
+        boolean[] b = {HEADS, TAILS, HEADS, HEADS, TAILS};
+        Coins c = new Coins(b);
+        
+        System.out.println(c.countHeads());
+        System.out.println(c.toString());
+        System.out.println(c.countRuns());
+          
+    }
+
+    public Coins(boolean[] coins) {
+        this.coins = coins;
+    }
+
+    public Coins(String c){
+        this.c = toString();
+    }
+
+    public Coins(int length){
+        this.length = length ;
+    }
+    
+    public int countRuns(){
+        int runs = 0;
+     
+        for(int i=0; i<coins.length; i++){
+            for(int j=0; j<coins.length; j++){
+                if(coins[i] == coins[j]){                  
+                    runs++;   
+                }
+            }
+        }
+        
+        return runs;
+    }
+    
+    public int countHeads(){
+        int count =0;
+        for(boolean coin : coins){
+
+            if (coin){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public String toString(){
+        String sequence="";
+
+        for(boolean  coin : coins){
+            if (coin){
+                sequence += "H";
+            } else{
+                sequence  += "T";
+            }
+        }        
+        return sequence ;            
+    }
+
+}
+
