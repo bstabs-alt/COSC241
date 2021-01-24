@@ -1,0 +1,64 @@
+package week10;
+
+/**
+ *  A selection sorter  implementation which is able to be observed through its
+ *  Sorter superclass.
+ *
+ * @author Iain Hewson
+ */
+public class MergeSort extends Sorter {
+
+    /**
+     *  Create a new Selection sorter with the given integers to sort.
+     *
+     * @param nums the integers to sort.
+     */
+    public MergeSort(Integer[] nums) {
+        super(nums); // pass nums[] to the superclass Sort
+    }
+
+    /**
+     * Sort the integers (which are stored in the parent Sorter class).
+     */
+    public void sortNums() {
+        // int i, j, comparisons, and nums[] are all protected datafields in
+        // the superclass Sort so we can use them without declaring them
+        comparisons = 0;
+        sort(0, nums.length-1);
+    }
+    
+    public void sort(int left, int right){
+        if(left < right){
+            if (right - left <= 1)
+                return;
+            int middle = (left+right)/2;
+            sort(left, middle);
+            sort(middle, right);
+            merge(left, middle, right);
+        }   
+    }
+        public void merge(int left, int middle, int right){
+            int leftPos = left;
+            int rightPos = middle;
+            i = 0;
+            int[] temp = new int[right-left];
+            while (leftPos < middle && rightPos < right){
+            if(nums[leftPos] < nums[rightPos]){
+                comparisons++;
+                temp[i++] = nums[leftPos++];
+            } else {
+                comparisons++;
+                temp[i++] = nums[rightPos++];
+            }
+        }
+            while(leftPos < middle) {
+                comparisons++;
+                temp[i++] = nums[leftPos++];
+            }
+            while(rightPos < right){
+                comparisons++;
+                temp[i++] = nums[rightPos++];
+            }
+            update();
+        }
+}
